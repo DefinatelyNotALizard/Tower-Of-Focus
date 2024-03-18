@@ -13,7 +13,7 @@ class MyTimer extends StatefulWidget {
 }
 
 class MyTimerState extends State<MyTimer> {
-  int _seconds = currentTime * 60; // Initial timer value in seconds
+  int _seconds = currentTime; // Initial timer value in seconds
   late Timer _timer;
 
   @override

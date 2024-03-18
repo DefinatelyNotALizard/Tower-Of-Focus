@@ -19,12 +19,16 @@ class _TimeSelectorState extends State<TimeSelector> {
             child: Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlue,
                   elevation: 0, // Set elevation to 0
+                  shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
                 ),
                 child: const SizedBox(
                   height: 60,
                   width: 20,
-                  child: Icon(Icons.arrow_back_ios, size: 30),
+                  child: Icon(Icons.arrow_back_ios, size: 30, color: Colors.white,),
                 ),
                 onPressed: () {
                   setState(() {
@@ -58,12 +62,16 @@ class _TimeSelectorState extends State<TimeSelector> {
             child: Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlue,
                   elevation: 0, // Set elevation to 0
+                  shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
                 ),
                 child: const SizedBox(
                   height: 60,
                   width: 20,
-                  child: Icon(Icons.arrow_forward_ios, size: 30),
+                  child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
                 ),
                 onPressed: () {
                   setState(() {

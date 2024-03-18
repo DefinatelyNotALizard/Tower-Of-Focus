@@ -12,7 +12,7 @@ import 'TimeSelector.dart';
 import 'TagSelector.dart';
 import 'dart:async';
 
-/Testing git...
+
 
 //Just noticed that while browsing through the app, if the timer has been started, it will reset if you leave the homepage, decided this isn't a bug, it's now a feature to stop you getting distracted
 void main() {
@@ -88,10 +88,11 @@ class TowerOfFocusState extends State<TowerOfFocus> {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
+        backgroundColor: Colors.lightBlue,
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.menu, size: 40),
@@ -165,9 +166,9 @@ class TowerOfFocusState extends State<TowerOfFocus> {
               padding: EdgeInsets.zero,
               children: [
                 SizedBox(
-                  height: 70,
+                  height: 95,
                   child: DrawerHeader(
-                    //padding: EdgeInsets.all(),
+                    //padding: EdgeInsets.fromLTRB(10, 00, 10, 10),
                     decoration: const BoxDecoration(
                       color: Colors.blue,
                     ),
@@ -339,11 +340,14 @@ Future<bool> showTheBottomSheet(BuildContext context) async {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                elevation: 0,
-              ),
-              child: const Text('Go', style: TextStyle(fontSize: 16)),
+                  backgroundColor: Colors.lightBlue,
+                  elevation: 0, // Set elevation to 0
+                  shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                ),
+              child: Text('Go', style: defaultTextWhite),
               onPressed: () {
-                // Assuming currentTowerAssetPath is defined elsewhere
                 sectionInProgress = currentTowerAssetPath;
                 goTime = true;
 

@@ -15,14 +15,14 @@ class _AcheivementsPageState extends State<AcheivementsPage> {
       children: [
         Container(
           // This container fills the space under the appBar
-          height: 56,
+          height: 80,
           width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+          color: Colors.lightBlue,
         ),
         Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 56,
+            height: MediaQuery.of(context).size.height - 80,
             child: Text(
                 'This is the acheivements page, in a later version, you will be able to earn in-game rewards here. For now though, it is empty',
                 style: noticeText))
