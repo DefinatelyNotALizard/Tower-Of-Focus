@@ -141,7 +141,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
                             //color: Colors.green,
                             margin: const EdgeInsets.all(0),
                             child: Image.asset(
-                              'lib/assets/coin.png',
+                              'assets/coin.png',
                               width: 50,
                               height: 50,
                             ),

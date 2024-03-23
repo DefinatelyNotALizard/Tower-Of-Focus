@@ -12,7 +12,7 @@ class _ScaffoldBlockState extends State<ScaffoldBlock> {
   Widget build(BuildContext context) {
     return Container(
       child: Image.asset(
-        'lib/assets/scaffold_clay.png', // Replace with your actual image path
+        'assets/scaffold_clay.png', // Replace with your actual image path
         width: 200, // Adjust width as needed
         height: 200, // Adjust height as needed
         fit: BoxFit.contain, // Adjust fit as needed

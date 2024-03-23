@@ -22,7 +22,8 @@ class TowerListState extends State<TowerList> {
 
   Future<void> playSound() async {
     String soundPath =
-        "rickroll.mp3"; //You don't need to include assets/ because AssetSource assume that you have sound in your assets folder.
+        "audio/rickroll.mp3"; //You don't need to include assets/ because AssetSource assume that you have sound in your assets folder.
+    await player.setVolume(1.0); // Set volume to maximum (1.0)
     await player.play(AssetSource(soundPath));
     //await player.setSourceUrl('hrrps://widgetwisom/sound1.wav');
   }

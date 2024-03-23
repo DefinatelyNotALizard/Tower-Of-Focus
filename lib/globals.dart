@@ -3,7 +3,7 @@ library dyna_manager.globals;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const String alarmPath = 'assets/audio/sample.mp3';
+//const String alarmPath = 'assets/audio/sample.mp3';
 
 double sizeMultiplier = 1;
 
@@ -67,16 +67,16 @@ TextStyle noticeText = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
 );
 
-List towerTypes = ['lib/assets/clay_tower.png', 'lib/assets/stone_tower.png'];
+List towerTypes = ['assets/clay_tower.png', 'assets/stone_tower.png'];
 //History
 List towerTypePaths = [
-  'lib/assets/clay_tower.png',
-  'lib/assets/clay_tower.png',
-  'lib/assets/clay_tower.png',
-  'lib/assets/clay_tower.png',
-  'lib/assets/clay_tower.png',
-  'lib/assets/clay_tower.png',
-  'lib/assets/stone_tower.png'
+  'assets/clay_tower.png',
+  'assets/clay_tower.png',
+  'assets/clay_tower.png',
+  'assets/clay_tower.png',
+  'assets/clay_tower.png',
+  'assets/clay_tower.png',
+  'assets/stone_tower.png'
 ];
 List tagsUsed = [
   'Study', //Week: 20, Month: 30, Year: 70
@@ -102,7 +102,7 @@ List<String> days = [
 
 int currentTowerTypeIndex = 0;
 
-String currentTowerAssetPath = 'lib/assets/clay_tower.png';
+String currentTowerAssetPath = 'assets/clay_tower.png';
 
 List<int> times = [1, 10, 15, 20, 25, 30, 35, 40];
 
