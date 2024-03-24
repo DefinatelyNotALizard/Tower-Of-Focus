@@ -39,9 +39,7 @@ class _PieWithHoleState extends State<PieWithHole> {
 
     //Here we are going to write a small program to load the appropriate values into the data dictionnary
     //First we reinitialise the dictionary
-    for (var i = 0; i < data.length; i++) {
-      data[tagNames[i]] = 0;
-    }
+    data.clear();
     //We will iterate over every element in the timeHistory list (see globals.dart)
     for (var i = 0; i < timeHistory.length; i++) {
       //For every element in timeHistory we will add it to the value in the data dictionnary at location key the element of tagsUsed of the same index
@@ -51,9 +49,7 @@ class _PieWithHoleState extends State<PieWithHole> {
     //Here we are going to write a small program to load the appropriate values into the dataWeek dictionnary
     //First we reinitialise the dictionary
     if (selectedIndexStats == 0) {
-      for (var i = 0; i < dataWeek.length; i++) {
-        dataWeek[tagNames[i]] = 0;
-      }
+      dataWeek.clear();
       for (var i = 0; i < datesThisWeek.length; i++) {
         dataWeek[tagsUsed[i]] = (dataWeek[tagsUsed[i]] ?? 0) +
             timeHistory[
@@ -124,7 +120,7 @@ class PieChartPainter extends CustomPainter {
     for (var entry in data.entries) {
       final paint = Paint()
         ..color = tagColours[
-            data.keys.toList().indexOf(entry.key) % tagColours.length]
+            /*data.keys.toList()*/tagNames.indexOf(entry.key) % tagColours.length]
         ..style = PaintingStyle.fill;
 
       final sweepAngle = (entry.value / total) * 360;

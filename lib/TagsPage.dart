@@ -21,12 +21,20 @@ class _TagsPageState extends State<TagsPage> {
     await showModalBottomSheet(
       context: context,
       builder: (BuildContext context) => TagSheet(
-        onUpdate: (String newName, Color newColor) {
-          setState(() {
-            tagNames[tagProcessingIndex] = newName;
+        onUpdate: (String newName, Color newColor, int active) {
+          if (active == 1) {
+            setState(() {
+            replaceData('tagNames', tagNames, newName, 'st', tagProcessingIndex);
+            //tagNames[tagProcessingIndex] = newName;
+            replaceData('tagColours', tagColours, newColor, 'col', tagProcessingIndex);
+            //tagColours[tagProcessingIndex] = newColor;
 
-            tagColours[tagProcessingIndex] = tagColour;
           });
+          }else{
+            setState(() {
+
+          });
+          }
           Navigator.pop(context);
           completer.complete(true);
         },
@@ -44,9 +52,10 @@ class _TagsPageState extends State<TagsPage> {
       builder: (BuildContext context) => TagSheetCreate(
         onCreation: (String newName, Color newColor) {
           setState(() {
-            tagNames.add(newName);
-
-            tagColours.add(tagColour);
+            writeData('tagNames', tagNames, newName, 'st');
+            //tagNames.add(newName);
+            writeData('tagColours', tagColours, newColor, 'col');
+            //tagColours.add(tagColour);
             data.putIfAbsent(newName, () => 0);
           });
           Navigator.pop(context);
@@ -60,6 +69,8 @@ class _TagsPageState extends State<TagsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(tagNames);
+    print(tagColours);
     return Column(
       children: [
         Container(
@@ -82,7 +93,10 @@ class _TagsPageState extends State<TagsPage> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
+
+                  child:  tagNames.isEmpty
+                            ? Spacer()
+                            : ListView.builder(
                       padding: EdgeInsets.zero,
                       //shrinkWrap: true,
                       itemCount: tagNames.length,
@@ -122,6 +136,8 @@ class _TagsPageState extends State<TagsPage> {
                               ),
                             ));
                       }),
+
+
                 ),
                 //Spacer(),
                 Padding(
@@ -154,7 +170,7 @@ class _TagsPageState extends State<TagsPage> {
 }
 
 class TagSheet extends StatefulWidget {
-  final Function(String, Color) onUpdate;
+  final Function(String, Color, int) onUpdate;
 
   const TagSheet({super.key, required this.onUpdate});
 
@@ -166,6 +182,7 @@ class _TagSheetState extends State<TagSheet> {
   final TextEditingController _textEditingController = TextEditingController();
   double blockSize = 39.5;
   int colourIndex = 0;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -386,7 +403,6 @@ class _TagSheetState extends State<TagSheet> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        tagColour = Colors.red;
                         setState(() {
                           tagColour = Colors.brown;
                           colourIndex = 7;
@@ -424,9 +440,12 @@ class _TagSheetState extends State<TagSheet> {
                 padding: const EdgeInsets.all(10),
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    tagNames.removeAt(tagProcessingIndex);
-                    tagColours.removeAt(tagProcessingIndex);
-                    Navigator.pop(context);
+                    removeData('tagNames', tagNames, tagProcessingIndex);
+                    //tagNames.removeAt(tagProcessingIndex);
+                    removeData('tagColours', tagColours, tagProcessingIndex);
+                    //tagColours.removeAt(tagProcessingIndex);
+                    widget.onUpdate('nope', tagColour, 0);
+                    
                   },
                   label: Text('Delete', style: headerText),
                   backgroundColor: Colors.red,
@@ -447,7 +466,8 @@ class _TagSheetState extends State<TagSheet> {
                         text = tagNames[tagProcessingIndex];
                       }
 
-                      widget.onUpdate(text, tagColour);
+                      widget.onUpdate(text, tagColour, 1);
+                      tagColour = Colors.red;
                     },
                     label: Text(' Save ', style: headerText),
                     backgroundColor: Colors.green,
@@ -477,6 +497,7 @@ class _TagSheetCreateState extends State<TagSheetCreate> {
   final TextEditingController _textEditingController = TextEditingController();
   double blockSize = 39.5;
   int colourIndex = 0;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -697,7 +718,6 @@ class _TagSheetCreateState extends State<TagSheetCreate> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        tagColour = Colors.red;
                         setState(() {
                           tagColour = Colors.brown;
                           colourIndex = 7;
@@ -749,6 +769,7 @@ class _TagSheetCreateState extends State<TagSheetCreate> {
                   child: FloatingActionButton.extended(
                     onPressed: () {
                       widget.onCreation(_textEditingController.text, tagColour);
+                      tagColour = Colors.red;
                     },
                     label: Text(' Create ', style: headerText),
                     backgroundColor: Colors.green,

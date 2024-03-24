@@ -11,12 +11,43 @@ import 'TowerSelector.dart';
 import 'TimeSelector.dart';
 import 'TagSelector.dart';
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
+
+//List of variables/lists to load:
+//towerTypePaths
+//tagsUsed
+//timeHistory
+//days
+//tagNames
+//tagColours
+
+
+
+Future<void> loadData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  towerTypePaths = prefs.getStringList('towerTypePaths') ?? [];
+  tagsUsed = prefs.getStringList('tagsUsed') ?? [];
+  timeHistory = prefs.getStringList('timeHistory')?.map((e) => int.parse(e)).toList() ?? [];
+  days = prefs.getStringList('days') ?? [];
+  tagNames = prefs.getStringList('tagNames') ?? [];
+  
+  // Loading an integer value
+  money = prefs.getInt('money') ?? 0; 
+  
+  // Loading tagColours as a list of integers and converting them back to Color objects
+  tagColours = prefs.getStringList('tagColours')?.map((colorValue) {
+    return Color(int.parse(colorValue, radix: 16)); // Parse hexadecimal string to integer
+  }).toList() ?? [];
+}
+
 
 
 
 //Just noticed that while browsing through the app, if the timer has been started, it will reset if you leave the homepage, decided this isn't a bug, it's now a feature to stop you getting distracted
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  loadData();
   runApp(const Main());
 }
 
@@ -30,6 +61,9 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      
+    });
     return const TowerOfFocus(/*onRefresh: () {
       setState(() {});
     }*/
@@ -84,7 +118,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+    
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
@@ -263,6 +297,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
                 Text('BETA:0.0.0', style: noticeText),
 
                 // Add more ListTile items as needed
+                
               ],
             ),
           ),
@@ -336,9 +371,16 @@ Future<bool> showTheBottomSheet(BuildContext context) async {
               child: const TimeSelector(),
             ),
             Container(
-              child: const TagSelector(),
+              child: tagNames.isEmpty
+                      ? Text('Tag list empty', style: footerText,)
+                      :const TagSelector()
             ),
-            ElevatedButton(
+            tagNames.isEmpty
+                      ? Container(
+                        height: 10,
+                        width: 10,
+                      )
+                      :ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightBlue,
                   elevation: 0, // Set elevation to 0
@@ -348,13 +390,14 @@ Future<bool> showTheBottomSheet(BuildContext context) async {
                 ),
               child: Text('Go', style: defaultTextWhite),
               onPressed: () {
-                sectionInProgress = currentTowerAssetPath;
+                //sectionInProgress = currentTowerAssetPath;
                 goTime = true;
 
                 Navigator.pop(context);
                 completer.complete(true);
               },
             ),
+            
           ],
         ),
       );

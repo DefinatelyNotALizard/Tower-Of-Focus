@@ -13,7 +13,7 @@ dependencies:
   audioplayers: ^4.0.3 #Do NOT change the version unless ABSOLUTELY necessary, the compiler will throw a hissy fit
   intl: any
   google_fonts: any
-  
+  shared_preferences: ^2.2.2
   
 dev_dependencies:
   flutter_test:

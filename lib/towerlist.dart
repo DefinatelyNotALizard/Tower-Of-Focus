@@ -96,7 +96,9 @@ class TowerListState extends State<TowerList> {
           }
         } else if (index == 0) {
           if (countdown == true) {
-            return MyTimer(
+            return Column(
+              children: [
+                MyTimer(
               key: widget.timerKey,
               onTimerFinished: () {
                 playSound();
@@ -147,21 +149,28 @@ class TowerListState extends State<TowerList> {
                       );
                     });
                 setState(() {
-                  money += currentReward * 100;
+                  money += currentReward;
+                  saveIntToSharedPreferences('money', money);
 
                   countdown = false;
                   goTime = false;
                   // Trigger a refresh of the TowerList
                 });
               },
+            ),
+            Container(
+              height: 205//MediaQuery.of(context).size.height - 480,
+            )
+              ],
             );
           } else {
             return Container(
-              height: 200,
+              height: MediaQuery.of(context).size.height - 280,
             );
           }
         } else {
-          return Container(
+          if (towerTypePaths.isNotEmpty) {
+            return Container(
             child: Image.asset(
               towerTypePaths[index - 2], // Replace with your actual image path
               width: 200,
@@ -169,6 +178,7 @@ class TowerListState extends State<TowerList> {
               fit: BoxFit.contain,
             ),
           );
+          }
         }
       },
     );

@@ -28,8 +28,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 Text(
                     'This is the settings page, in a later version, you will be able to modify parameters of the app to suit your preferences here. For now though, it is empty',
                     style: noticeText),
-                Text('Contact the developper at: \n jacquesmlang@gmail.com',
-                    style: noticeText)
+                Text('Contact the developper at: \n jacquesmlang@gmail.com \n 06 69 16 17 75',
+                    style: noticeText),
+                    FloatingActionButton.extended(
+                  //This is the random BS button, it does whatever debugging task I set it to. it is not active in user-facing releases, even beta.
+                  //At the moment, it's last function was emptying the entire saved data in SharedPreferences
+                  onPressed: () {
+                    dataNuke();
+                  },
+                  label: Text('Reset (app restart required)', style: defaultTextWhite),
+                  backgroundColor: Colors.red,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                ),
               ],
             )),
       ],

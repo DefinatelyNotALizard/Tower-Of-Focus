@@ -2,8 +2,60 @@ library dyna_manager.globals;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-//const String alarmPath = 'assets/audio/sample.mp3';
+
+Future<void> dataNuke() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+}
+
+Future<void> writeData(String name, List list, dynamic data, String type) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  if (type == 'int') {
+    list.insert(0, data);
+    List<String> intStringList = list.map((intNumber) => intNumber.toString()).toList();
+    prefs.setStringList(name, intStringList.map((e) => e.toString()).toList());
+  } else if (type == 'col') {
+    list.insert(0, data);
+    List<String> hexStringList = list.map((color) => color.value.toRadixString(16)).toList().cast<String>();
+    prefs.setStringList(name, hexStringList.map((e) => e.toString()).toList());
+  } else {
+    list.insert(0, data);
+    prefs.setStringList(name, list.map((e) => e.toString()).toList());
+  }
+}
+
+
+Future<void> removeData(String name, List list, int index) async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  list.removeAt(index);
+  await prefs.remove(name);
+  prefs.setStringList(name, list.map((e) => e.toString()).toList());
+}
+
+Future<void> replaceData(String name, List list, dynamic data, String type, int index) async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (type == 'col'){
+    list[index] = data;
+    List<String> hexStringList = list.map((color) => color.value.toRadixString(16)).toList().cast<String>();
+    await prefs.remove(name);
+    prefs.setStringList(name, hexStringList.map((e) => e.toString()).toList());
+  }else{
+    list[index] = data;
+    await prefs.remove(name);
+    prefs.setStringList(name, list.map((e) => e.toString()).toList());
+  }
+  
+  
+}
+
+Future<void> saveIntToSharedPreferences(String key, int value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setInt(key, value);
+}
+
 
 double sizeMultiplier = 1;
 
@@ -67,50 +119,26 @@ TextStyle noticeText = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
 );
 
-List towerTypes = ['assets/clay_tower.png', 'assets/stone_tower.png'];
+List<String> towerTypes = ['assets/clay_tower.png', 'assets/stone_tower.png'];
 //History
-List towerTypePaths = [
-  'assets/clay_tower.png',
-  'assets/clay_tower.png',
-  'assets/clay_tower.png',
-  'assets/clay_tower.png',
-  'assets/clay_tower.png',
-  'assets/clay_tower.png',
-  'assets/stone_tower.png'
-];
-List tagsUsed = [
-  'Study', //Week: 20, Month: 30, Year: 70
-  'Work', //Week:15, Month: 15, Year: 15
-  'Study',
-  'Exercise', //Week:0, Month: 55, Year: 55
-  'Exercise',
-  'Study',
-  'Study'
-];
+List<String> towerTypePaths = [];
+List<String> tagsUsed = [];
 
-List<int> timeHistory = [10, 15, 10, 20, 35, 10, 40];
+List<int> timeHistory = [];
 
-List<String> days = [
-  '26-02-2024 10:16',
-  '26-02-2024 10:16',
-  '26-02-2024 10:16',
-  '22-02-2024 10:16',
-  '20-02-2024 10:16',
-  '15-02-2024 10:16',
-  '25-01-2024 10:16'
-];
+List<String> days = [];
 
 int currentTowerTypeIndex = 0;
 
 String currentTowerAssetPath = 'assets/clay_tower.png';
 
-List<int> times = [1, 10, 15, 20, 25, 30, 35, 40];
+List<int> times = [10, 15, 20, 25, 30, 35, 40];
 
 int currentTimeIndex = 0;
 
 int currentTime = times[0];
 
-String sectionInProgress = currentTowerAssetPath;
+//String sectionInProgress = currentTowerAssetPath;
 
 int currentReward = 0;
 

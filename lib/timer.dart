@@ -13,7 +13,7 @@ class MyTimer extends StatefulWidget {
 }
 
 class MyTimerState extends State<MyTimer> {
-  int _seconds = currentTime; // Initial timer value in seconds
+  int _seconds = currentTime * 60; // Initial timer value in seconds
   late Timer _timer;
 
   @override
@@ -30,11 +30,15 @@ class MyTimerState extends State<MyTimer> {
         if (_seconds == 0) {
           _timer.cancel();
           for (var i = 0; i < currentTime / 10; i++) {
-            towerTypePaths.insert(0, currentTowerAssetPath);
+            writeData('towerTypePaths', towerTypePaths, currentTowerAssetPath, 'st');
+            //towerTypePaths.insert(0, currentTowerAssetPath);
           }
-          tagsUsed.insert(0, currentTag);
-          timeHistory.insert(0, currentTime);
-          days.insert(0, DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()));
+          writeData('tagsUsed', tagsUsed, currentTag, 'st');
+          writeData('timeHistory', timeHistory, currentTime, 'int');
+          writeData('days', days, DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()), 'st');
+          //tagsUsed.insert(0, currentTag);
+          //timeHistory.insert(0, currentTime);
+          //days.insert(0, DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()));
           currentReward = currentTime;
           widget.onTimerFinished(); // Call the callback
         } else {

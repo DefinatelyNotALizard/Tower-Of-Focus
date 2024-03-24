@@ -73,9 +73,10 @@ class _StatsPageState extends State<StatsPage> {
     //We then grab the items in the timeHistory that are located by the indicies in the indicesThisWeek list
     timeBucketThisWeek = 0;
     // Set all values to zero
-    dataMonth.forEach((key, value) {
+    /*dataMonth.forEach((key, value) {
       dataMonth[key] = 0;
-    });
+    });*/
+    dataMonth.clear();
 
     for (var i = 0; i < indicesThisWeek.length; i++) {
       timeBucketThisWeek += timeHistory[indicesThisWeek[i]];
@@ -122,14 +123,14 @@ class _StatsPageState extends State<StatsPage> {
       children: [
         Container(
           // This container fills the space under the appBar
-          height: 56,
+          height: 80,
           width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+          color: Colors.lightBlue,
         ),
         Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 56,
+            height: MediaQuery.of(context).size.height - 80,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
