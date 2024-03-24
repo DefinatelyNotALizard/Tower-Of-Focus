@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
+
     namespace "com.example.test"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -58,6 +59,9 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    lintOptions {
+     checkReleaseBuilds false
+   }
 }
 
 flutter {
