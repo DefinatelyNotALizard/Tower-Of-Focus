@@ -176,3 +176,6 @@ Map<String, double> dataMonth = {
   //'GoGoGadgetD': 0,
   // Other categories...
 };
+
+
+int savedTime = 0;

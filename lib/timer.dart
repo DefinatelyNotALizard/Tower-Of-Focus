@@ -5,8 +5,8 @@ import 'package:tower_of_focus/globals.dart';
 import 'package:intl/intl.dart';
 
 DateTime now = DateTime.now();
-
-DateTime freezeTime = now;
+int time = now.hour * 3600 + now.minute * 60 + now.second;
+int freezeTime = now.hour * 3600 + now.minute * 60 + now.second;
 
 
 class MyTimer extends StatefulWidget {
@@ -19,7 +19,10 @@ class MyTimer extends StatefulWidget {
 }
 
 class MyTimerState extends State<MyTimer> {
-  int _seconds = currentTime * 60; // Initial timer value in seconds
+  int _seconds = savedTime == 0
+                  ? currentTime * 60
+                  : savedTime; // Initial timer value in seconds
+  
   late Timer _timer;
 
   @override
@@ -29,13 +32,14 @@ class MyTimerState extends State<MyTimer> {
   }
 
   void _startTimer() {
-    freezeTime = now;
+    freezeTime = time;
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (_seconds == 0) {
           _timer.cancel();
+          savedTime = 0;
           for (var i = 0; i < currentTime / 10; i++) {
             writeData('towerTypePaths', towerTypePaths, currentTowerAssetPath, 'st');
             //towerTypePaths.insert(0, currentTowerAssetPath);
@@ -49,10 +53,17 @@ class MyTimerState extends State<MyTimer> {
           currentReward = currentTime;
           widget.onTimerFinished(); // Call the callback
         } else {
-          setState(() {
-            _seconds--;
-            _seconds -= now.difference(freezeTime).inSeconds;
+          if (currentPage != 0){
+            print(savedTime);
+          _timer.cancel();
+          }else{
+            setState(() {
+            _seconds = (currentTime * 60) - (time - freezeTime);
+            now = DateTime.now();
+            time = now.hour * 3600 + now.minute * 60 + now.second;
+            savedTime = _seconds;
           });
+          }
         }
       },
     );
@@ -60,6 +71,7 @@ class MyTimerState extends State<MyTimer> {
 
   void stopTimer() {
     _timer.cancel();
+    savedTime = 0;
   }
 
   String _formatTime(int seconds) {

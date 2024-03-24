@@ -69,8 +69,6 @@ class _TagsPageState extends State<TagsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(tagNames);
-    print(tagColours);
     return Column(
       children: [
         Container(
