@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:tower_of_focus/globals.dart';
+import 'package:intl/intl.dart';
+
+DateTime now = DateTime.now();
+
+DateTime freezeTime = now;
+
 
 class MyTimer extends StatefulWidget {
   final GlobalKey<MyTimerState> timerKey = GlobalKey<MyTimerState>();
@@ -23,6 +29,7 @@ class MyTimerState extends State<MyTimer> {
   }
 
   void _startTimer() {
+    freezeTime = now;
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
@@ -44,6 +51,7 @@ class MyTimerState extends State<MyTimer> {
         } else {
           setState(() {
             _seconds--;
+            _seconds -= now.difference(freezeTime).inSeconds;
           });
         }
       },
@@ -63,7 +71,7 @@ class MyTimerState extends State<MyTimer> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 200,
+        width: 220,
         height: 200,
         child: Center(
           child: Text(

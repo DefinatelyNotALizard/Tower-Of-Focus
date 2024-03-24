@@ -132,7 +132,7 @@ int currentTowerTypeIndex = 0;
 
 String currentTowerAssetPath = 'assets/clay_tower.png';
 
-List<int> times = [10, 15, 20, 25, 30, 35, 40];
+List<int> times = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
 
 int currentTimeIndex = 0;
 
