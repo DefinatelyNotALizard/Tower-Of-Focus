@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.tower_of_focus
 
 import io.flutter.embedding.android.FlutterActivity
 
