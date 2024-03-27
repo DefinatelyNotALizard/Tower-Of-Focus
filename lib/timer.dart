@@ -37,7 +37,7 @@ class MyTimerState extends State<MyTimer> {
     _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (_seconds >= 0) {
+        if (_seconds <= 0) {
           _timer.cancel();
           savedTime = 0;
           for (var i = 0; i < currentTime / 10; i++) {

@@ -294,7 +294,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
                   height: 50,
                   color: Colors.white,
                 ),
-                Text('BETA:0.0.3', style: noticeText),
+                Text('BETA:0.0.4', style: noticeText),
 
                 // Add more ListTile items as needed
                 
