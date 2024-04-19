@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+
+
 Future<void> dataNuke() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.clear();
@@ -118,7 +120,11 @@ TextStyle noticeText = GoogleFonts.roboto(
   fontSize: fontSize * 1,
   fontWeight: FontWeight.normal,
 );
-
+TextStyle invisible = GoogleFonts.roboto(
+  color:  Colors.transparent,
+  fontSize: fontSize * 0,
+  fontWeight: FontWeight.normal,
+);
 List<String> towerTypes = ['assets/clay_tower.png', 'assets/stone_tower.png'];
 //History
 List<String> towerTypePaths = [];
@@ -132,7 +138,7 @@ int currentTowerTypeIndex = 0;
 
 String currentTowerAssetPath = 'assets/clay_tower.png';
 
-List<int> times = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+List<int> times = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
 
 int currentTimeIndex = 0;
 

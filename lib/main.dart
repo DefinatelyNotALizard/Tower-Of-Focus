@@ -99,6 +99,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
                 onRefresh: () {
                   setState(() {
                     // Refresh logic here
+                    currentReward = 0;
                   });
                 },
               ),
@@ -241,7 +242,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
                     color: Colors.black,
                     size: iconSize,
                   ),
-                  title: Text('Acheivements', style: defaultText),
+                  title: Text('Achievements', style: defaultText),
                   onTap: () {
                     setState(() {
                       currentPage = 2;
@@ -376,7 +377,7 @@ Future<bool> showTheBottomSheet(BuildContext context) async {
                       :const TagSelector()
             ),
             tagNames.isEmpty
-                      ? Container(
+                      ? const SizedBox(
                         height: 10,
                         width: 10,
                       )
@@ -390,9 +391,11 @@ Future<bool> showTheBottomSheet(BuildContext context) async {
                 ),
               child: Text('Go', style: defaultTextWhite),
               onPressed: () {
+              
                 //sectionInProgress = currentTowerAssetPath;
+                countdown = true;
                 goTime = true;
-
+                savedTime = 0;
                 Navigator.pop(context);
                 completer.complete(true);
               },

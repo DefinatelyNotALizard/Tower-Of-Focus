@@ -20,12 +20,65 @@ class TowerListState extends State<TowerList> {
   final player = AudioPlayer();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  Future<void> playSound() async {
-    String soundPath =
-        "audio/rickroll.mp3"; //You don't need to include assets/ because AssetSource assume that you have sound in your assets folder.
-    await player.setVolume(1.0); // Set volume to maximum (1.0)
-    await player.play(AssetSource(soundPath));
-    //await player.setSourceUrl('hrrps://widgetwisom/sound1.wav');
+  
+
+  void congratsDialogue(){
+    
+                
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Dialog(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          return Container(
+                            height: 400,
+                            padding: const EdgeInsets.all(7.5),
+                            child: Column(
+                              children: [
+                                Text('Congratulations!',
+                                    style: headerTextBlack),
+                                Container(
+                                  margin: const EdgeInsets.all(10),
+                                  height: 100,
+                                  width: 100,
+                                  child: const TowerBlock(),
+                                ),
+                                Text('You focused for $currentTime minutes',
+                                    style: defaultText),
+                                Text('You earned $currentReward coins',
+                                    style: defaultText),
+                                FloatingActionButton.extended(
+                                  onPressed: () {
+                  money += currentReward;
+                  saveIntToSharedPreferences('money', money);
+
+                  countdown = false;
+                  goTime = false;
+                  savedTime = 0;
+                                    
+                                    
+                                    widget.onRefresh();
+                                    //widget.timerKey.currentState?.dispose();
+                                    Navigator.pop(context);
+                                  },
+                                  label: Text('OK', style: headerText),
+                                  backgroundColor: Colors.blue,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8.0)),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                      );
+                    });
+                    countdown = false;
   }
 
   @override
@@ -77,10 +130,16 @@ class TowerListState extends State<TowerList> {
                     child: FloatingActionButton.extended(
                       onPressed: () async {
                         setState(() {
+
                           goTime = false;
                           countdown = false;
 
                           widget.timerKey.currentState?.stopTimer();
+                          goTime = false;
+                          countdown = false;
+
+                          //widget.timerKey.currentState?.dispose();
+                          
                         });
                       },
                       label: Text('Cancel', style: headerText),
@@ -101,61 +160,7 @@ class TowerListState extends State<TowerList> {
                 MyTimer(
               key: widget.timerKey,
               onTimerFinished: () {
-                playSound();
-                // Callback function triggered when timer finishes
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Dialog(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: LayoutBuilder(builder: (context, constraints) {
-                          return Container(
-                            height: 400,
-                            padding: const EdgeInsets.all(7.5),
-                            child: Column(
-                              children: [
-                                Text('Congratulations!',
-                                    style: headerTextBlack),
-                                Container(
-                                  margin: const EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 100,
-                                  child: const TowerBlock(),
-                                ),
-                                Text('You focused for $currentTime minutes',
-                                    style: defaultText),
-                                Text('You earned $currentReward coins',
-                                    style: defaultText),
-                                FloatingActionButton.extended(
-                                  onPressed: () {
-                                    currentReward = 0;
-                                    widget.onRefresh();
-                                    Navigator.pop(context);
-                                  },
-                                  label: Text('OK', style: headerText),
-                                  backgroundColor: Colors.blue,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8.0)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }),
-                      );
-                    });
-                setState(() {
-                  money += currentReward;
-                  saveIntToSharedPreferences('money', money);
-
-                  countdown = false;
-                  goTime = false;
-                  // Trigger a refresh of the TowerList
-                });
+                congratsDialogue();
               },
             ),
             Container(
@@ -180,6 +185,7 @@ class TowerListState extends State<TowerList> {
           );
           }
         }
+        return null;
       },
     );
   }

@@ -68,3 +68,15 @@ flutter {
 }
 
 dependencies {}
+
+
+//This parts stops the compiler from vomiting up a load of gibberish about duplicate dependencies
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
+                useVersion("1.8.20") 
+            }
+        }
+    }
+}

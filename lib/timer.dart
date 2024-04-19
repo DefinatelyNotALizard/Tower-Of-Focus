@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:tower_of_focus/globals.dart';
@@ -28,6 +29,7 @@ class MyTimerState extends State<MyTimer> {
   @override
   void initState() {
     super.initState();
+    FlutterAlarmClock.createTimer(length: _seconds);
     _startTimer();
   }
 

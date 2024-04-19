@@ -60,7 +60,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 color: Colors.black,
                 size: iconSize,
               ),
-              title: Text('Acheivements', style: defaultText),
+              title: Text('Achievements', style: defaultText),
               onTap: () {
                 setState(() {
                   currentPage = 2;
