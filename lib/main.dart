@@ -12,7 +12,7 @@ import 'TimeSelector.dart';
 import 'TagSelector.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'globals.dart';
 //List of variables/lists to load:
 //towerTypePaths
 //tagsUsed
@@ -194,7 +194,7 @@ class TowerOfFocusState extends State<TowerOfFocus> {
           color: Colors.lightBlue,
           child: _mainContainerOptions[currentPage],
         ),
-        drawer: Drawer(
+         drawer: Drawer(
           child: Container(
             color: Colors.white,
             child: ListView(

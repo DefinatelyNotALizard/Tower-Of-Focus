@@ -185,3 +185,4 @@ Map<String, double> dataMonth = {
 
 
 int savedTime = 0;
+int freezeTime = 0;

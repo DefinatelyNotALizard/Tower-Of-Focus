@@ -131,8 +131,7 @@ class TowerListState extends State<TowerList> {
                       onPressed: () async {
                         setState(() {
 
-                          goTime = false;
-                          countdown = false;
+                          
 
                           widget.timerKey.currentState?.stopTimer();
                           goTime = false;
